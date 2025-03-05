@@ -13,6 +13,10 @@ export default function Home() {
       <div className="inline-block max-w-xl text-center justify-center">
         <span className={title()}>Welcome to &nbsp;</span>
         <span className={title({ color: "violet" })}>Mockexam&nbsp;</span>
+        <span className={title({ color: "violet" })}>Mockexam&nbsp;</span>
+        <span className={title({ color: "violet" })}>Mockexam&nbsp;</span>
+        <span className={title({ color: "violet" })}>Mockexam&nbsp;</span>
+        <span className={title({ color: "violet" })}>Mockexam&nbsp;</span>
       </div>
     </section>
   );

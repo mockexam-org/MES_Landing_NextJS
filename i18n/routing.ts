@@ -7,10 +7,11 @@ export const routing = defineRouting({
   // Used when no locale matches
   defaultLocale: 'kh',
 
-  pathnames: {
-    "/contect":{
-    en: "/contect",
-    kh: "/ខ្មុលមក",
-    },
-  },
+  // switch rout
+  // pathnames: {
+  //   "/contect":{
+  //   en: "/contect",
+  //   kh: "/ខ្មុលមក",
+  //   },
+  // },
 });

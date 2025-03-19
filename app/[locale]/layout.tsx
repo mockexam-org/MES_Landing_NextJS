@@ -6,6 +6,8 @@ import React from "react";
 import { getMessages } from "next-intl/server";
 import "@/styles/globals.css";
 import Footer from "@/components/footer";
+import { Navbar } from "@/components/navbar";
+
 
 export default async function LocaleLayout({
   children,
@@ -24,10 +26,8 @@ export default async function LocaleLayout({
       <body>
         <NextIntlClientProvider messages={messages}>
           <div>
-            <div>
-              <LanguageSwitch locale={locale} />
-            </div>
             <div className="flex flex-col min-h-screen bg-[#F1F5F9]">
+              <Navbar locale = {locale} />
               <main>{children}</main>
               <Footer />
             </div>

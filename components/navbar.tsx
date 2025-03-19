@@ -26,7 +26,12 @@ import {
   Logo,
 } from "@/components/icons";
 
-export const Navbar = () => {
+import LanguageSwitch from "./LanguageSwitch";
+interface NavbarProps {
+  locale: string;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ locale }) => {
   const searchInput = (
     <Input
       aria-label="Search"
@@ -63,7 +68,7 @@ export const Navbar = () => {
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
+                  "data-[active=true]:text-primary data-[active=true]:font-medium"
                 )}
                 color="foreground"
                 href={item.href}
@@ -90,6 +95,7 @@ export const Navbar = () => {
             <GithubIcon className="text-default-500" />
           </Link>
           <ThemeSwitch />
+          <LanguageSwitch locale={locale} /> {/* Correctly closed LanguageSwitch */}
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
         <NavbarItem className="hidden md:flex">
@@ -124,8 +130,8 @@ export const Navbar = () => {
                   index === 2
                     ? "primary"
                     : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
+                    ? "danger"
+                    : "foreground"
                 }
                 href="#"
                 size="lg"

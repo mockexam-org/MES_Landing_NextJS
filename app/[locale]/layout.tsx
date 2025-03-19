@@ -1,20 +1,20 @@
-import {NextIntlClientProvider, Locale, hasLocale} from 'next-intl';
-import LanguageSwitch from '@/components/LanguageSwitch';
-import {notFound} from 'next/navigation';
-import { routing } from "../../i18n/routing"; 
-import React from 'react';
-import { getMessages } from 'next-intl/server';
+import { NextIntlClientProvider, Locale, hasLocale } from "next-intl";
+import LanguageSwitch from "@/components/LanguageSwitch";
+import { notFound } from "next/navigation";
+import { routing } from "../../i18n/routing";
+import React from "react";
+import { getMessages } from "next-intl/server";
 import "@/styles/globals.css";
-import Footer from '@/components/footer';
+import Footer from "@/components/footer";
 
 export default async function LocaleLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode;
-  params: Promise<{locale: string}>;
+  params: Promise<{ locale: string }>;
 }) {
-  const {locale} = await params;
+  const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
@@ -25,11 +25,11 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <div>
             <div>
-              <LanguageSwitch locale={locale}/>
+              <LanguageSwitch locale={locale} />
             </div>
             <div className="flex flex-col min-h-screen bg-[#F1F5F9]">
-            <main>{children}</main>
-            <Footer />
+              <main>{children}</main>
+              <Footer />
             </div>
           </div>
         </NextIntlClientProvider>

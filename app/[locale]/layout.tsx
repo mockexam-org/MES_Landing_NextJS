@@ -1,38 +1,15 @@
-import { NextIntlClientProvider, Locale, hasLocale } from "next-intl";
-import LanguageSwitch from "@/components/LanguageSwitch";
-import { notFound } from "next/navigation";
-import { routing } from "../../i18n/routing";
-import React from "react";
-import { getMessages } from "next-intl/server";
+"use client";
 import "@/styles/globals.css";
-import Footer from "@/components/footer";
+import NavbarComponent from "@/components/navbar"; // Importing the NavbarComponent
 
-export default async function LocaleLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
-  const messages = await getMessages();
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={locale}>
+    <html lang="en">
       <body>
-        <NextIntlClientProvider messages={messages}>
-          <div>
-            <div>
-              <LanguageSwitch locale={locale} />
-            </div>
-            <div className="flex flex-col min-h-screen bg-[#F1F5F9]">
-              <main>{children}</main>
-              <Footer />
-            </div>
-          </div>
-        </NextIntlClientProvider>
+        <div className="flex flex-col min-h-screen bg-[#F1F5F9]">
+          <NavbarComponent /> {/* Navbar at the top */}
+          <main className="flex-grow">{children}</main>
+        </div>
       </body>
     </html>
   );

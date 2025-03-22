@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import {
   Navbar,
@@ -13,9 +15,10 @@ import {
 
 import { BellIcon, ProfileIcon } from "./icons";
 import { ThemeSwitch } from "./theme-switch";
+import LanguageSwitch from "./LanguageSwitch"; // Import LanguageSwitch
 
 // Main Navbar Component
-export default function NavbarComponent() {
+export default function NavbarComponent({ locale, translations }: { locale: string, translations: any }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
@@ -26,8 +29,28 @@ export default function NavbarComponent() {
   const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false); // Track success dialog visibility
   const predefinedPassword = "123456"; // Predefined password
 
-  const menuItems = ["ទំព័រដើម", "គោលបំណង", "អំពីយើង", "ទំនាក់ទំនង"];
-
+  const translation_text = {
+    home: "Home",
+    purpose: "Purpose",
+    aboutUs: "About Us",
+    contact: "Contact",
+    login: "Login",
+    signUp: "Sign Up",
+    enterPassword: "Enter Password",
+    password: "Password",
+    submit: "Submit",
+    close: "Close",
+    success: "Success",
+    passwordCorrect: "Password is correct",
+    incorrectPassword: "Incorrect password",
+    mainHeading: "Try the Mock Tests now!",
+    subHeading: "Sub Heading",
+    startNow: "Start Now"
+  };
+  
+  const t = { ...translation_text, ...translations };
+  const menuItems = [t.home, t.purpose, t.aboutUs, t.contact];
+  
   // Handle menu item click
   const handleMenuClick = (index: number) => {
     setActiveIndex(index); // Set the active index
@@ -48,7 +71,7 @@ export default function NavbarComponent() {
       setIsLoggedIn(true); // Set login status to true
     } else {
       setIsPasswordCorrect(false); // Incorrect password
-      alert("Incorrect password!");
+      alert(t.incorrectPassword);
     }
   };
 
@@ -84,7 +107,7 @@ export default function NavbarComponent() {
                 className={`h-[40px] w-auto min-w-[92px] rounded-[100px] items-center justify-center 
                   ${activeIndex === index ? "bg-blue-600 text-white" : " text-gray-800 hover:bg-blue-600 hover:text-white"} 
                   transition-colors`}
-                onClick={() => handleMenuClick(index)}
+                onPress={() => handleMenuClick(index)}
               >
                 {item}
               </Link>
@@ -93,11 +116,12 @@ export default function NavbarComponent() {
         </NavbarContent>
 
         <NavbarContent justify="end">
+          <LanguageSwitch locale={locale} /> {/* Pass locale to LanguageSwitch */}
           {!isLoggedIn ? (
             <>
               <NavbarItem className="hidden lg:flex">
-                <Link href="#" onClick={() => setIsDialogOpen(true)}>
-                  Login
+                <Link href="#" onPress={() => setIsDialogOpen(true)}>
+                  {t.login}
                 </Link>
               </NavbarItem>
               <NavbarItem>
@@ -106,9 +130,9 @@ export default function NavbarComponent() {
                   color="primary"
                   href="#"
                   variant="flat"
-                  onClick={() => setIsDialogOpen(true)}
+                  onPress={() => setIsDialogOpen(true)}
                 >
-                  Sign Up
+                  {t.signUp}
                 </Button>
               </NavbarItem>
             </>
@@ -132,7 +156,7 @@ export default function NavbarComponent() {
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
                 className={`w-full ${activeIndex === index ? "text-blue-600" : "text-gray-800"} transition-colors`}
-                onClick={() => handleMenuClick(index)}
+                onPress={() => handleMenuClick(index)}
                 href="#"
                 size="lg"
               >
@@ -145,10 +169,10 @@ export default function NavbarComponent() {
         {/* Login / Sign Up Dialog */}
         {isDialogOpen && (
           <div className="dialog">
-            <h2>Enter Password</h2>
+            <h2>{t.enterPassword}</h2>
             <form onSubmit={handleSubmit}>
               <label>
-                Password:
+                {t.password}:
                 <input
                   type="password"
                   value={password}
@@ -156,18 +180,18 @@ export default function NavbarComponent() {
                   required
                 />
               </label>
-              <button type="submit">Submit</button>
+              <button type="submit">{t.submit}</button>
             </form>
-            <button onClick={() => setIsDialogOpen(false)}>Close</button>
+            <button onClick={() => setIsDialogOpen(false)}>{t.close}</button>
           </div>
         )}
 
         {/* Success Dialog */}
         {isSuccessDialogOpen && (
           <div className="dialog">
-            <h2>Success</h2>
-            <p>Password is correct!</p>
-            <button onClick={closeSuccessDialog}>Close</button>
+            <h2>{t.success}</h2>
+            <p>{t.passwordCorrect}</p>
+            <button onClick={closeSuccessDialog}>{t.close}</button>
           </div>
         )}
 
@@ -213,14 +237,13 @@ export default function NavbarComponent() {
         <div className="px-[5%] sm:px-[8%] lg:px-[100px] py-[32px] h-auto w-full flex flex-col lg:flex-row md:justify-center justify-evenly items-center">
           <div className="flex flex-col text-center lg:text-left w-full lg:w-auto">
             <div className="head-topic text-[36px] sm:text-[42px] lg:text-[48px] font-semibold leading-[45px] sm:leading-[50px] lg:leading-[57px] max-w-[385px] sm:max-w-[450px] text-[#06598F]">
-              សាកល្បងប្រលងចូលតិចណូ​និងរៀនត្រៀមដោយសេរី...!
+              {t.mainHeading}
             </div>
             <div className="body-topic w-full sm:w-[470px] text-[14px] sm:text-[18px] font-medium leading-[24px] sm:leading-[29px]">
-              ប្រព័ន្ធប្រលងសាកល្បង​​
-              ជាគេហទំព័រជំនួយដល់សិស្សានុសិស្ស​ដែលមានបំណងត្រៀមប្រលងចូលវិទ្យាស្ថានបច្ចេកវិទ្យាកម្ពុជា។
+              {t.subHeading}
             </div>
             <button className="start-btn w-full sm:w-auto max-w-[157px] h-[40px] rounded-2xl bg-[#06598F] gap-[8px] text-white mt-[16px] sm:mt-[24px]">
-              សាកល្បងឥឡូវនេះ
+              {t.startNow}
             </button>
           </div>
 

@@ -1,15 +1,29 @@
-"use client";
 import "@/styles/globals.css";
-import NavbarComponent from "@/components/navbar"; // Importing the NavbarComponent
+import NavbarComponent from "@/components/navbar";
+import Footer from "@/components/footer";
+import { NextIntlClientProvider } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: { locale: string };
+}) {
+  const { locale } = await params; // Await params before destructuring
+  const translations = await getTranslations('Footer', locale);
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body>
-        <div className="flex flex-col min-h-screen bg-[#F1F5F9]">
-          <NavbarComponent /> {/* Navbar at the top */}
-          <main className="flex-grow">{children}</main>
-        </div>
+        <NextIntlClientProvider locale={locale}>
+          <div className="flex flex-col min-h-screen bg-[#F1F5F9]">
+            <NavbarComponent locale={locale} /> {/* Pass locale to NavbarComponent */}
+            <main className="flex-grow">{children}</main>
+            <Footer translations={translations} />
+          </div>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

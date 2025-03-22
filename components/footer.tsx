@@ -1,9 +1,8 @@
 import Image from "next/legacy/image";
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
 
-const Footer = async () => {
-  const t = await getTranslations("Footer");
+const Footer = ({ translations }: { translations: any }) => {
+  const t = translations;
   return (
     <footer className="bg-[#F1F5F9] w-full mt-auto flex-shrink-0">
       <div className="bg-white rounded-t-2xl shadow-md mx-auto overflow-hidden relative max-w-[1240px] px-4 sm:px-8">

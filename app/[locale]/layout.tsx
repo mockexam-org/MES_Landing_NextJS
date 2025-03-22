@@ -1,36 +1,27 @@
-import { NextIntlClientProvider, Locale, hasLocale } from "next-intl";
-import LanguageSwitch from "@/components/LanguageSwitch";
-import { notFound } from "next/navigation";
-import { routing } from "../../i18n/routing";
-import React from "react";
-import { getMessages } from "next-intl/server";
 import "@/styles/globals.css";
+import NavbarComponent from "@/components/navbar";
 import Footer from "@/components/footer";
-import { Navbar } from "@/components/navbar";
+import { NextIntlClientProvider } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
-
-export default async function LocaleLayout({
+export default async function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: { locale: string };
 }) {
-  const { locale } = await params;
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
-  const messages = await getMessages();
+  const { locale } = await params; // Await params before destructuring
+  const translations = await getTranslations('Footer', locale);
+
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider messages={messages}>
-          <div>
-            <div className="flex flex-col min-h-screen bg-[#F1F5F9]">
-              <Navbar locale = {locale} />
-              <main>{children}</main>
-              <Footer />
-            </div>
+        <NextIntlClientProvider locale={locale}>
+          <div className="flex flex-col min-h-screen bg-[#F1F5F9]">
+            <NavbarComponent locale={locale} /> {/* Pass locale to NavbarComponent */}
+            <main className="flex-grow">{children}</main>
+            <Footer translations={translations} />
           </div>
         </NextIntlClientProvider>
       </body>

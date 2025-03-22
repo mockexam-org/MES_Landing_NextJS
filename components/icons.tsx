@@ -185,3 +185,45 @@ export const SearchIcon = (props: IconSvgProps) => (
     />
   </svg>
 );
+
+export const BellIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      height={size || height}
+      viewBox="0 0 24 24"
+      width={size || width}
+      {...props}
+    >
+      <path
+        d="M12 2C8.134 2 5 5.134 5 9v6c0 2.5-1 4.75-2.69 6.31C2.44 21.31 3.06 22 4 22h16c.94 0 1.56-.69 1.69-1.69C20 19.75 19 17.5 19 15V9c0-3.866-3.134-7-7-7zm-1 16h2v2h-2zm-4-3c0-.568.447-1 1-1h6c.553 0 1 .432 1 1 0 .568-.447 1-1 1H8c-.553 0-1-.432-1-1z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+};
+
+export const ProfileIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      height={size || height}
+      viewBox="0 0 24 24"
+      width={size || width}
+      {...props}
+    >
+      <path
+        d="M12 12c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4zm0 2c-3.3 0-6 2.7-6 6v2h12v-2c0-3.3-2.7-6-6-6z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+};

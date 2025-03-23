@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from "react";
 import {
   Navbar,
@@ -10,9 +11,10 @@ import {
   Link,
   Button,
 } from "@heroui/react";
-
 import { BellIcon, ProfileIcon } from "./icons";
 import { ThemeSwitch } from "./theme-switch";
+import Image from "next/image";
+import LanguageSwitcher from "./NavBar/LanguageSwitch";
 
 // Main Navbar Component
 export default function NavbarComponent() {
@@ -66,11 +68,11 @@ export default function NavbarComponent() {
             onClick={() => setIsMenuOpen((prev) => !prev)} // Toggle the menu onClick
           />
           <NavbarBrand>
-            <img
-              src="/navbar_images/GIC - logo.png"
+            <Image
+              src="/navbar_images/MES_LOGO_WEB.png"
               alt=""
-              width={111}
-              height={36}
+              width={150}
+              height={40}
             />
           </NavbarBrand>
         </NavbarContent>
@@ -93,6 +95,10 @@ export default function NavbarComponent() {
         </NavbarContent>
 
         <NavbarContent justify="end">
+          <NavbarItem>
+            <LanguageSwitcher/>
+            {/* <ThemeSwitch/> */}
+          </NavbarItem>
           {!isLoggedIn ? (
             <>
               <NavbarItem className="hidden lg:flex">
@@ -208,31 +214,6 @@ export default function NavbarComponent() {
           }
         `}</style>
       </Navbar>
-
-      <div>
-        <div className="px-[5%] sm:px-[8%] lg:px-[100px] py-[32px] h-auto w-full flex flex-col lg:flex-row md:justify-center justify-evenly items-center">
-          <div className="flex flex-col text-center lg:text-left w-full lg:w-auto">
-            <div className="head-topic text-[36px] sm:text-[42px] lg:text-[48px] font-semibold leading-[45px] sm:leading-[50px] lg:leading-[57px] max-w-[385px] sm:max-w-[450px] text-[#06598F]">
-              សាកល្បងប្រលងចូលតិចណូ​និងរៀនត្រៀមដោយសេរី...!
-            </div>
-            <div className="body-topic w-full sm:w-[470px] text-[14px] sm:text-[18px] font-medium leading-[24px] sm:leading-[29px]">
-              ប្រព័ន្ធប្រលងសាកល្បង​​
-              ជាគេហទំព័រជំនួយដល់សិស្សានុសិស្ស​ដែលមានបំណងត្រៀមប្រលងចូលវិទ្យាស្ថានបច្ចេកវិទ្យាកម្ពុជា។
-            </div>
-            <button className="start-btn w-full sm:w-auto max-w-[157px] h-[40px] rounded-2xl bg-[#06598F] gap-[8px] text-white mt-[16px] sm:mt-[24px]">
-              សាកល្បងឥឡូវនេះ
-            </button>
-          </div>
-
-          <div className="mt-[32px] sm:mt-0 w-full lg:w-auto">
-            <img
-              src="/navbar_images/Frame 638.png"
-              alt=""
-              className="w-full sm:w-[500px] lg:w-[800px] xl:w-[900px] h-auto max-w-full"
-            />
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

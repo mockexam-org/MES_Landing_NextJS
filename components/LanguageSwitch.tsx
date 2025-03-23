@@ -6,7 +6,7 @@ import "@/styles/globals.css";
 import { fontMapping, fontUrls } from "../utils/fonts";
 
 const LanguageSwitch = ({ locale }: { locale: string }) => {
-  const t = useTranslations();
+  const t = useTranslations('Footer');
   const pathname = usePathname();
   const router = useRouter();
 

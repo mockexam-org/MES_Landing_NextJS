@@ -12,20 +12,26 @@ import {
   Link,
   Button,
 } from "@heroui/react";
+import Image from "next/image"; // Import Image from next/image
 
 import { BellIcon, ProfileIcon } from "./icons";
 import { ThemeSwitch } from "./theme-switch";
 import LanguageSwitch from "./LanguageSwitch"; // Import LanguageSwitch
 
 // Main Navbar Component
-export default function NavbarComponent({ locale, translations }: { locale: string, translations: any }) {
+export default function NavbarComponent({
+  locale,
+  translations,
+}: {
+  locale: string;
+  translations: any;
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
 
   const [isDialogOpen, setIsDialogOpen] = useState(false); // Track dialog visibility
   const [password, setPassword] = useState(""); // Track password input
-  const [isPasswordCorrect, setIsPasswordCorrect] = useState(false); // Track password validity
   const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false); // Track success dialog visibility
   const predefinedPassword = "123456"; // Predefined password
 
@@ -45,12 +51,12 @@ export default function NavbarComponent({ locale, translations }: { locale: stri
     incorrectPassword: "Incorrect password",
     mainHeading: "Try the Mock Tests now!",
     subHeading: "Sub Heading",
-    startNow: "Start Now"
+    startNow: "Start Now",
   };
-  
+
   const t = { ...translation_text, ...translations };
   const menuItems = [t.home, t.purpose, t.aboutUs, t.contact];
-  
+
   // Handle menu item click
   const handleMenuClick = (index: number) => {
     setActiveIndex(index); // Set the active index
@@ -65,12 +71,10 @@ export default function NavbarComponent({ locale, translations }: { locale: stri
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (password === predefinedPassword) {
-      setIsPasswordCorrect(true); // Correct password
       setIsDialogOpen(false); // Close the dialog
       setIsSuccessDialogOpen(true); // Open success dialog
       setIsLoggedIn(true); // Set login status to true
     } else {
-      setIsPasswordCorrect(false); // Incorrect password
       alert(t.incorrectPassword);
     }
   };
@@ -89,11 +93,11 @@ export default function NavbarComponent({ locale, translations }: { locale: stri
             onClick={() => setIsMenuOpen((prev) => !prev)} // Toggle the menu onClick
           />
           <NavbarBrand>
-            <img
-              src="/navbar_images/GIC - logo.png"
+            <Image
               alt=""
-              width={111}
               height={36}
+              src="/navbar_images/GIC - logo.png"
+              width={111}
             />
           </NavbarBrand>
         </NavbarContent>
@@ -103,10 +107,14 @@ export default function NavbarComponent({ locale, translations }: { locale: stri
             <NavbarItem key={item} isActive={activeIndex === index}>
               <Link
                 aria-current={activeIndex === index ? "page" : undefined}
-                href="#"
                 className={`h-[40px] w-auto min-w-[92px] rounded-[100px] items-center justify-center 
-                  ${activeIndex === index ? "bg-blue-600 text-white" : " text-gray-800 hover:bg-blue-600 hover:text-white"} 
+                  ${
+                    activeIndex === index
+                      ? "bg-blue-600 text-white"
+                      : " text-gray-800 hover:bg-blue-600 hover:text-white"
+                  } 
                   transition-colors`}
+                href="#"
                 onPress={() => handleMenuClick(index)}
               >
                 {item}
@@ -116,7 +124,8 @@ export default function NavbarComponent({ locale, translations }: { locale: stri
         </NavbarContent>
 
         <NavbarContent justify="end">
-          <LanguageSwitch locale={locale} /> {/* Pass locale to LanguageSwitch */}
+          <LanguageSwitch locale={locale} />{" "}
+          {/* Pass locale to LanguageSwitch */}
           {!isLoggedIn ? (
             <>
               <NavbarItem className="hidden lg:flex">
@@ -155,10 +164,12 @@ export default function NavbarComponent({ locale, translations }: { locale: stri
           {menuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
-                className={`w-full ${activeIndex === index ? "text-blue-600" : "text-gray-800"} transition-colors`}
-                onPress={() => handleMenuClick(index)}
+                className={`w-full ${
+                  activeIndex === index ? "text-blue-600" : "text-gray-800"
+                } transition-colors`}
                 href="#"
                 size="lg"
+                onPress={() => handleMenuClick(index)}
               >
                 {item}
               </Link>
@@ -174,10 +185,10 @@ export default function NavbarComponent({ locale, translations }: { locale: stri
               <label>
                 {t.password}:
                 <input
+                  required
                   type="password"
                   value={password}
                   onChange={handlePasswordChange}
-                  required
                 />
               </label>
               <button type="submit">{t.submit}</button>
@@ -194,8 +205,6 @@ export default function NavbarComponent({ locale, translations }: { locale: stri
             <button onClick={closeSuccessDialog}>{t.close}</button>
           </div>
         )}
-
-        {/* Simple Dialog Styling */}
         <style jsx>{`
           .dialog {
             position: fixed;
@@ -248,10 +257,12 @@ export default function NavbarComponent({ locale, translations }: { locale: stri
           </div>
 
           <div className="mt-[32px] sm:mt-0 w-full lg:w-auto">
-            <img
-              src="/navbar_images/Frame 638.png"
+            <Image
               alt=""
               className="w-full sm:w-[500px] lg:w-[800px] xl:w-[900px] h-auto max-w-full"
+              height={500}
+              src="/navbar_images/Frame 638.png"
+              width={900}
             />
           </div>
         </div>

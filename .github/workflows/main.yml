@@ -12,9 +12,9 @@ jobs:
     steps:
     - name: Send Telegram Notification
       env:
-        TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_TO }}
+        TELEGRAM_TOKEN: ${{ secrets.MES_BOT_TOKEN_LANDING }}
+        TELEGRAM_CHAT_ID: ${{ secrets.MES_TELEGRAM_GROUP }}
       run: |
         curl -s -X POST https://api.telegram.org/bot${{ env.TELEGRAM_TOKEN }}/sendMessage \
         -d chat_id=${{ env.TELEGRAM_CHAT_ID }} \
-        -d text="New push to the repository: ${{ github.repository }} by ${{ github.actor }}. Commit message: ${{ github.event.head_commit.message }
+        -d text="New push to the repository: ${{ github.repository }} by ${{ github.actor }}. Commit message: ${{ github.event.head_commit.message }}"

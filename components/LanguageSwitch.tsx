@@ -31,18 +31,18 @@ const LanguageSwitch = ({ locale }: { locale: string }) => {
   };
 
   return (
-    <div className="w-full flex justify-between border-b py-4">
-      <div className="flex flex-row text-xl items-center">
+    <div className='w-full flex justify-between border-b py-4'>
+      <div className='flex flex-row text-xl items-center'>
         <Image
-          alt="Avatar"
-          className="w-4 h-4 rounded-full object-cover mr-"
+          alt='Avatar'
+          className='w-4 h-4 rounded-full object-cover mr-'
           height={16}
           src={`/language_image/${locale}.png`}
           width={16}
         />
         <select value={locale} onChange={handleLanguageChange}>
-          <option value="en">EN</option>
-          <option value="kh">KH</option>
+          <option value='en'>EN</option>
+          <option value='kh'>KH</option>
         </select>
       </div>
     </div>

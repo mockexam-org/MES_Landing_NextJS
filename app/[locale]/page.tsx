@@ -1,5 +1,3 @@
-import LanguageSwitch from '@/components/LanguageSwitch';
-import LanguageSwitcher from '@/components/NavBar/LanguageSwitch';
 import { getTranslations } from 'next-intl/server';
 import React from 'react';
 

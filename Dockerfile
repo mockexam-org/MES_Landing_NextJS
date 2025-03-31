@@ -1,23 +1,20 @@
-# Use the official Node.js image as the base image
-FROM node:16-alpine
+# Dockerfile for Next.js (place this in your Next.js project root)
+FROM node:18-alpine
 
-# Set the working directory
-WORKDIR /app
-
-# Copy package.json and package-lock.json
-COPY package.json package-lock.json ./
+WORKDIR /usr/src/app
 
 # Install dependencies
+COPY package*.json ./
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of the application
 COPY . .
 
-# Build the Next.js application
+# Build the Next.js app
 RUN npm run build
 
-# Expose the port the app runs on
+# Expose port
 EXPOSE 3000
 
-# Start the Next.js application
+# Start the app
 CMD ["npm", "start"]

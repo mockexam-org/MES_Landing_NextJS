@@ -5,8 +5,10 @@ import Image from "next/image"; // Import Image from next/image
 
 import "@/styles/globals.css";
 import { fontMapping, fontUrls } from "../utils/fonts";
+import { useTranslations } from "next-intl";
 
 const LanguageSwitch = ({ locale }: { locale: string }) => {
+  const t = useTranslations('Footer');
   const pathname = usePathname();
   const router = useRouter();
 

@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import {
   Navbar,
@@ -12,11 +11,9 @@ import {
   Link,
   Button,
 } from "@heroui/react";
-import Image from "next/image"; // Import Image from next/image
-
 import { BellIcon, ProfileIcon } from "./icons";
 import { ThemeSwitch } from "./theme-switch";
-import LanguageSwitch from "./LanguageSwitch"; // Import LanguageSwitch
+import LanguageSwitcher from "./NavBar/LanguageSwitch";
 
 // Main Navbar Component
 export default function NavbarComponent({
@@ -85,24 +82,24 @@ export default function NavbarComponent({
   };
 
   return (
-    <div className="flex flex-col">
+    <div className='flex flex-col'>
       <Navbar onMenuOpenChange={setIsMenuOpen}>
-        <NavbarContent justify="start">
+        <NavbarContent justify='start'>
           <NavbarMenuToggle
             className={`sm:hidden ${isMenuOpen ? "Close menu" : ""}`} // Rotate icon when open
             onClick={() => setIsMenuOpen((prev) => !prev)} // Toggle the menu onClick
           />
           <NavbarBrand>
-            <Image
-              alt=""
-              height={36}
-              src="/navbar_images/GIC - logo.png"
+            <img
+              src='/navbar_images/MES_LOGO_WEB.png'
+              alt=''
               width={111}
+              height={36}
             />
           </NavbarBrand>
         </NavbarContent>
 
-        <NavbarContent className="hidden sm:flex gap-8" justify="center">
+        <NavbarContent className='hidden sm:flex gap-8' justify='center'>
           {menuItems.map((item, index) => (
             <NavbarItem key={item} isActive={activeIndex === index}>
               <Link
@@ -114,7 +111,7 @@ export default function NavbarComponent({
                       : " text-gray-800 hover:bg-blue-600 hover:text-white"
                   } 
                   transition-colors`}
-                href="#"
+                href='#'
                 onPress={() => handleMenuClick(index)}
               >
                 {item}
@@ -123,22 +120,24 @@ export default function NavbarComponent({
           ))}
         </NavbarContent>
 
-        <NavbarContent justify="end">
-          <LanguageSwitch locale={locale} />{" "}
-          {/* Pass locale to LanguageSwitch */}
+        <NavbarContent justify='end'>
+          <NavbarItem>
+            <LanguageSwitcher />
+            {/* <ThemeSwitch/> */}
+          </NavbarItem>
           {!isLoggedIn ? (
             <>
-              <NavbarItem className="hidden lg:flex">
-                <Link href="#" onPress={() => setIsDialogOpen(true)}>
+              <NavbarItem className='hidden lg:flex'>
+                <Link href='#' onPress={() => setIsDialogOpen(true)}>
                   {t.login}
                 </Link>
               </NavbarItem>
               <NavbarItem>
                 <Button
                   as={Link}
-                  color="primary"
-                  href="#"
-                  variant="flat"
+                  color='primary'
+                  href='#'
+                  variant='flat'
                   onPress={() => setIsDialogOpen(true)}
                 >
                   {t.signUp}
@@ -151,10 +150,10 @@ export default function NavbarComponent({
                 <ThemeSwitch />
               </NavbarItem>
               <NavbarItem>
-                <BellIcon className="text-default-500 cursor-pointer" />
+                <BellIcon className='text-default-500 cursor-pointer' />
               </NavbarItem>
               <NavbarItem>
-                <ProfileIcon className="text-default-500 cursor-pointer" />
+                <ProfileIcon className='text-default-500 cursor-pointer' />
               </NavbarItem>
             </>
           )}
@@ -167,8 +166,8 @@ export default function NavbarComponent({
                 className={`w-full ${
                   activeIndex === index ? "text-blue-600" : "text-gray-800"
                 } transition-colors`}
-                href="#"
-                size="lg"
+                href='#'
+                size='lg'
                 onPress={() => handleMenuClick(index)}
               >
                 {item}
@@ -179,19 +178,19 @@ export default function NavbarComponent({
 
         {/* Login / Sign Up Dialog */}
         {isDialogOpen && (
-          <div className="dialog">
+          <div className='dialog'>
             <h2>{t.enterPassword}</h2>
             <form onSubmit={handleSubmit}>
               <label>
                 {t.password}:
                 <input
                   required
-                  type="password"
+                  type='password'
                   value={password}
                   onChange={handlePasswordChange}
                 />
               </label>
-              <button type="submit">{t.submit}</button>
+              <button type='submit'>{t.submit}</button>
             </form>
             <button onClick={() => setIsDialogOpen(false)}>{t.close}</button>
           </div>
@@ -199,7 +198,7 @@ export default function NavbarComponent({
 
         {/* Success Dialog */}
         {isSuccessDialogOpen && (
-          <div className="dialog">
+          <div className='dialog'>
             <h2>{t.success}</h2>
             <p>{t.passwordCorrect}</p>
             <button onClick={closeSuccessDialog}>{t.close}</button>
@@ -242,31 +241,30 @@ export default function NavbarComponent({
         `}</style>
       </Navbar>
 
-      <div>
+      {/* <div>
         <div className="px-[5%] sm:px-[8%] lg:px-[100px] py-[32px] h-auto w-full flex flex-col lg:flex-row md:justify-center justify-evenly items-center">
           <div className="flex flex-col text-center lg:text-left w-full lg:w-auto">
             <div className="head-topic text-[36px] sm:text-[42px] lg:text-[48px] font-semibold leading-[45px] sm:leading-[50px] lg:leading-[57px] max-w-[385px] sm:max-w-[450px] text-[#06598F]">
-              {t.mainHeading}
+              សាកល្បងប្រលងចូលតិចណូ​និងរៀនត្រៀមដោយសេរី...!
             </div>
             <div className="body-topic w-full sm:w-[470px] text-[14px] sm:text-[18px] font-medium leading-[24px] sm:leading-[29px]">
-              {t.subHeading}
+              ប្រព័ន្ធប្រលងសាកល្បង​​
+              ជាគេហទំព័រជំនួយដល់សិស្សានុសិស្ស​ដែលមានបំណងត្រៀមប្រលងចូលវិទ្យាស្ថានបច្ចេកវិទ្យាកម្ពុជា។
             </div>
             <button className="start-btn w-full sm:w-auto max-w-[157px] h-[40px] rounded-2xl bg-[#06598F] gap-[8px] text-white mt-[16px] sm:mt-[24px]">
-              {t.startNow}
+              សាកល្បងឥឡូវនេះ
             </button>
           </div>
 
           <div className="mt-[32px] sm:mt-0 w-full lg:w-auto">
-            <Image
+            <img
+              src="/navbar_images/Frame 638.png"
               alt=""
               className="w-full sm:w-[500px] lg:w-[800px] xl:w-[900px] h-auto max-w-full"
-              height={500}
-              src="/navbar_images/Frame 638.png"
-              width={900}
             />
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

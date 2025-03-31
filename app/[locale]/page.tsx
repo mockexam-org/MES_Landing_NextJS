@@ -1,8 +1,15 @@
+import KhmerWebsitePage from "@/components/KhmerWebsitePage";
 import { getTranslations } from "next-intl/server";
 import React from "react";
 
 export default async function HomePage() {
-  await getTranslations("Footer");
-
-  return <div className="text-xl" />;
+  const t = await getTranslations("Footer");
+  return (
+    <div className='text-xl'>
+      {/* <h1 className='dark:text-red-300 text-blue-400'>{t("Recommendation")}</h1> */}
+      <main>
+        <KhmerWebsitePage />
+      </main>
+    </div>
+  );
 }
